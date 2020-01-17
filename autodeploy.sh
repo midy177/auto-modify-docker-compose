@@ -3,7 +3,7 @@
 . ~/.bash_profile
 intag=$1
 imname=$2
-newtag=$(echo $intag|awk '{$1=substr($1,12)}1'
+newtag=$(echo $intag|awk '{$1=substr($1,12)}1')
 echo "the tag is ${newtag}"
 oldtag=`grep "${imname}" docker-compose.yml|awk NR==1|awk -F ":" '{print $NF}'`
 echo "docker pull ${imname}:${newtag}"
