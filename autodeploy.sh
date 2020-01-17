@@ -2,10 +2,10 @@
 . /etc/profile
 . ~/.bash_profile
 intag=$1
-newtag=$(echo $intag | tr -d "a-zA-Z/")
+imname=$2
+newtag=$(echo $intag|awk '{$1=substr($1,12)}1'
 echo "the tag is ${newtag}"
-oldtag=`grep "image: " docker-compose.yml|awk NR==1|awk -F "image: " '{print $2}'|awk -F ":" '{print $NF}'`
-imname=`grep "image: " docker-compose.yml|awk NR==1|awk -F "image: " '{print $2}'|awk -F ":" '{print $1}'`
+oldtag=`grep "${imname}" docker-compose.yml|awk NR==1|awk -F ":" '{print $NF}'`
 echo "docker pull ${imname}:${newtag}"
 docker pull ${imname}:${newtag}
 if [ $? -eq 0 ]; then
