@@ -33,8 +33,8 @@ steps:
         from_secret: produce_private_ssh_key
       script:
         - cd docker-compose所在路径
-        - sudo wget https://github.com/wuluoyong/auto-modify-docker-compose/blob/master/autodeploy.sh -O autodeploy.sh;sudo chmod +x autodeploy.sh 
-        - sudo autodeploy.sh ${DRONE_COMMIT_REF} 镜像名不带tag
+        - sudo wget https://github.com/wuluoyong/auto-modify-docker-compose/raw/master/autodeploy.sh -O autodeploy.sh;sudo chmod +x autodeploy.sh 
+        - sudo ./autodeploy.sh ${DRONE_COMMIT_REF} 镜像名不带tag
     when:
       ref:
         - refs/tags/D*
