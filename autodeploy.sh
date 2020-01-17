@@ -10,8 +10,10 @@ echo "docker pull ${imname}:${newtag}"
 docker pull ${imname}:${newtag}
 if [ $? -eq 0 ]; then
      echo "pull image successfull!"
-     sed -e s/${oldtag}/${newtag}/g docker-compose.yml
+     sed -i s/${oldtag}/${newtag}/g docker-compose.yml
+     rm $0
 else
      echo "pull image failed! Please check if the image exists in the repository?"
+     rm $0 
      exit 0
 fi
