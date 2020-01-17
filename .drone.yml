@@ -1,0 +1,40 @@
+steps:
+  - name: ssh-cd-test
+    image: appleboy/drone-ssh
+    settings:
+      host: 
+        from_secret: develop_deploy_host
+      port:
+        from_secret: develop_deploy_port
+      username:
+        from_secret: develop_deploy_user
+      key:
+        from_secret: test_private_ssh_key
+      script:
+        - cd /home/localhost/pizza-docker && docker-compose stop && docker-compose rm -f
+        - docker rmi -f registry-intl-vpc.cn-hongkong.aliyuncs.com/morecoingo/pizza-usde:develop
+        - docker-compose up -d
+    when:
+      ref:
+        - refs/tags/*
+
+
+steps:
+  - name: ssh-cd-produce
+    image: appleboy/drone-ssh
+    settings:
+      host: 
+        from_secret: produce_deploy_host
+      port:
+        from_secret: produce_deploy_port
+      username:
+        from_secret: produce_deploy_user
+      key:
+        from_secret: produce_private_ssh_key
+      script:
+        - cd /home/localhost/pizza-docker && docker-compose stop && docker-compose rm -f
+        - docker rmi -f registry-intl-vpc.cn-hongkong.aliyuncs.com/morecoingo/pizza-usde:develop
+        - docker-compose up -d
+    when:
+      ref:
+        - refs/tags/D*
