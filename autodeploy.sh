@@ -11,6 +11,7 @@ docker pull ${imname}:${newtag}
 if [ $? -eq 0 ]; then
      echo "pull image successfull!"
      sed -i s/${oldtag}/${newtag}/g docker-compose.yml
+     docker-compose up -d
      rm $0
 else
      echo "pull image failed! Please check if the image exists in the repository?"
