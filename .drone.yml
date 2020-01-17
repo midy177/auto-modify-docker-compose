@@ -32,9 +32,9 @@ steps:
       key:
         from_secret: produce_private_ssh_key
       script:
-        - cd /home/localhost/pizza-docker && docker-compose stop && docker-compose rm -f
-        - docker rmi -f registry-intl-vpc.cn-hongkong.aliyuncs.com/morecoingo/pizza-usde:develop
-        - docker-compose up -d
+        - cd docker-compose所在路径
+        - sudo wget https://github.com/wuluoyong/auto-modify-docker-compose/blob/master/autodeploy.sh -O autodeploy.sh;sudo chmod +x autodeploy.sh 
+        - sudo autodeploy.sh ${DRONE_COMMIT_REF} 镜像名不带tag
     when:
       ref:
         - refs/tags/D*
